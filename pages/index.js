@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FooterBanner, HeroBanner, Pet, Web3Login } from '../components/index';
 import { client } from '../lib/client';
 import ReactPaginate from 'react-paginate';
+import { useStateContext } from '../context/StateContext';
 
 const Home = ({ pets, bannerData }) => {
+
+  const { setCartRedirect } = useStateContext();
+  setCartRedirect(false);
+
   return (
     <>
       {/* {console.log(bannerData)} */}

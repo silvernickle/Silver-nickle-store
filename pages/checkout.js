@@ -12,7 +12,7 @@ const checkout = () => {
     const { data, status } = useSession();
 
     const router = useRouter();
-    const { totalPrice, cartRedirect, setShowCart } = useStateContext();
+    const { totalPrice, setCartRedirect, setShowCart } = useStateContext();
     setShowCart(false);
 
     //console.log(totalPrice)
@@ -57,31 +57,41 @@ const checkout = () => {
             const { chainId } = await provider.getNetwork();
             //console.log(typeof(chainId)); 
 
-            if (chainId !== 1) {        //1 reps ethereum mainnets chain id
-                alert('Please ensure you set your network to Ethereum Mainnet and try again!')
-            } else {
-                if (accounts) { 
-                    const ethUSDPrice = await axios.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
-                    //dollarPrice / ethUSDPrice.data['USD']
-                    const ether = totalPrice / ethUSDPrice.data['USD'];
-                    const eth = ether.toString()
-                    //console.log(eth)
-    
-                    //const amount = ethers.utils.parseEther(eth)
-                    const amount = ethers.utils.parseUnits(eth, 'ether')  //.from(eth.toString()).toHexString();
-                    
-                    const tx = await signer.sendTransaction({
-                        to: recipient,
-                        value: amount //used this amount to test //if value is <= to zero the transaction won't work 
-                    });
-                    console.log(tx.hash);
+            if (accounts) {
+                if (chainId !== 1) {        //1 reps ethereum mainnets chain id and 5 reps goereli
+                    alert('Please ensure you set your network to Ethereum Mainnet and try again!')
                 } else {
-                    alert('No Ethereum wallet detected.');
+                    if (accounts) { 
+                        const ethUSDPrice = await axios.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD');
+                        //dollarPrice / ethUSDPrice.data['USD']
+                        const ether = totalPrice / ethUSDPrice.data['USD'];
+                        const eth = ether.toString()
+                        //console.log(eth)
+        
+                        //const amount = ethers.utils.parseEther(eth)
+                        const amount = ethers.utils.parseUnits(eth, 'ether')  //.from(eth.toString()).toHexString();
+                        
+                        const tx = await signer.sendTransaction({
+                            to: recipient,
+                            value: amount //used this amount to test //if value is <= to zero the transaction won't work 
+                        });
+                        console.log(tx.hash);
+                        setCartRedirect(true)
+                        router.push('/success');
+                    }
                 }
+            }  else {
+                alert('No Ethereum wallet detected.');
             }
 
         } catch (error) {
-            console.error(error.message)
+            //alert('No Ethereum wallet detected or insufficient funds! Please check your wallet and try again.');
+            //console.error(error.message)
+            if (error.message === undefined) {
+                alert('No Ethereum wallet detected!');
+            } else{
+                alert('Insufficient funds!');
+            }
         }
     }
 

@@ -1,10 +1,10 @@
 {
   "root": true,
   "project": {
-    "name": "pet_store2"
+    "name": "silvernicklestore"
   },
   "api": {
-    "projectId": "mxatw3dp",
+    "projectId": "yk5ephgv",
     "dataset": "production"
   },
   "plugins": [
