@@ -58,7 +58,7 @@ export default search
 
 export const getServerSideProps = async ({ params: { searchInput } }) => {
   //const res = await axios.get(`http://localhost:3000/api/search/${searchInput}`);
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/search/${searchInput}`);
+  const res = await axios.get(`https://silver-nickle-store.vercel.app/api/search/${searchInput}`);
 
   return {
     props: {searchResult: res.data}
