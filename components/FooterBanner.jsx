@@ -19,12 +19,12 @@ const FooterBanner = ({ footerBanner: {
           <p>{smallText}</p>
           <h3>{midText}</h3>
           <p>{desc}</p>
-          <Link href={`/pet/${pet}`}>
+          <Link href={`/pet/${pet.toLowerCase()}`}>
             <button type='button'>{buttonText}</button>
           </Link>
         </div>
 
-        <img src={urlFor(image)} className='footer-banner-image' alt='headphones' />
+        <img src={urlFor(image)} className='footer-banner-image-clone' alt='headphones' />
       </div>
     </div>
   )

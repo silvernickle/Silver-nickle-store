@@ -28,12 +28,12 @@ export default {
         },
         {
             name: 'smallText',
-            title: 'SmallText',
+            title: 'SmallText (Name of pet)',
             type: 'string',
         },
         {
             name: 'midText',
-            title: 'MidText',
+            title: 'MidText (Breed of pet)',
             type: 'string',
         },
         {

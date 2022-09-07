@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
+import { AiFillMail } from 'react-icons/ai';
+import { HiCheckBadge } from 'react-icons/hi';
 
 const checkout = () => {
 
@@ -142,18 +144,30 @@ const checkout = () => {
                     <input type="text" className="checkout-input" onChange={e => setZipCode(e.target.value)} placeholder='123 456' />
                 </div> 
                 <div className="checkout-inputfield terms">
-                    <label className="checkout-check">
-                        <input type="checkbox" required />
+                    {/* <label className="checkout-check">
+                        <input type="checkbox" required checked />
                         <span className="checkout-checkmark"></span>
                     </label>
+                    <HiCheckBadge /> */}
                     <p>Shipping fee $50</p>
                 </div> 
+                
                 <div className="checkout-inputfield">
                     {/* <input type="button" value="Pay" className="checkout-btn" onSubmit={submitHandler} /> */}
                     <button type="button" className="checkout-btn" onClick={submitHandler}>Pay</button>
                 </div>
             </div>
         </form>
+
+        <div className='payment-prompt'>
+            <h4>Having payment issues? Try sending an email request and get an immediate response.</h4>
+            <p className='icons'>
+                <a href="mailto:silvernickledogbreeders@gmail.com?subject=Request for the purchase of a puppy (Pet name)!&body=I am writing to request the purchase of (Pet name) kindly provide details and requirements for payments">
+                    <AiFillMail />
+                </a>
+            </p>
+
+        </div>
     </div>
   )
 }

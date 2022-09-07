@@ -27,9 +27,9 @@ const SearchBar = () => {
                 value={searchInput}
                 onChange={e => setSearchInput(e.target.value)}
             />
-                <button type="button" onClick={handleSearch}>
-                <BiSearch />
-            </button>
+                {/* <button type="button" onClick={handleSearch}>
+                    <BiSearch />
+                </button> */}
         </form>
     </div>
   )

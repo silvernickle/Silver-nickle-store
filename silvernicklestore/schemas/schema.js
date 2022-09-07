@@ -8,8 +8,8 @@ import banner from './banner';
 import pet from './pet';
 import breed from './breed';
 import cart from './cart';
-import userAuth from './userAuth';
-import olduser from './olduser';
+// import userAuth from './userAuth';
+// import olduser from './olduser';
 import account from './account';
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -20,6 +20,6 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     /* Your types here! */
-    user, banner, pet, breed, cart, userAuth, olduser, account
+    user, banner, pet, breed, cart, account // userAuth, olduser,
   ]),
 })

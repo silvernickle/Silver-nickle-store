@@ -16,6 +16,7 @@ export const StateContext = ({ children }) => {
     const [qty, setQty] = useState(1);
     const [ searchInput, setSearchInput ] = useState();
     const [cartRedirect, setCartRedirect] = useState(false);
+    const [active, setActive] = useState(false)
 
     let foundPet;
     let index;
@@ -145,7 +146,9 @@ export const StateContext = ({ children }) => {
                 account,
                 signer,
                 cartRedirect,
-                setCartRedirect
+                setCartRedirect,
+                active,
+                setActive
             }}
         >
             {children}

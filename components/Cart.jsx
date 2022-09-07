@@ -25,6 +25,7 @@ const Cart = () => {
       router.push('/auth/login');
     } else {
 
+      // const response = await axios.post(`http://localhost:3000/api/cart/redirect`, cartItems[0]);
       const response = await axios.post(`https://silver-nickle-store.vercel.app/api/cart/redirect`, cartItems[0]);
 
       if (response.status === 500) return;

@@ -16,7 +16,7 @@ const Login = () => {
                         <div className='dropdown'>
                             <Image
                                 className='profile-image'  //'rounded-full cursor-pointer'
-                                src='/assets/incognito.jpg'
+                                src='/assets/avatar-red.png'
                                 alt='user'
                                 width={40}
                                 height={40}
@@ -36,11 +36,11 @@ const Login = () => {
                     )}
                 </div>
             ) : (
-                <p className='logo'>
+                <>
                     <Link className='link' href='/auth/login'>
-                        Login
+                        <p>Login</p>
                     </Link>
-                </p>
+                </>
             )}
         </>
     )

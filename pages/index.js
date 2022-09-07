@@ -26,7 +26,7 @@ const Home = ({ pets, bannerData }) => {
       </div> */}
       <PaginatedItems pets={pets} />
 
-      <FooterBanner footerBanner={bannerData && bannerData[0]} />
+      <FooterBanner footerBanner={bannerData?.length && bannerData[0]} />
     </>
   )
 }

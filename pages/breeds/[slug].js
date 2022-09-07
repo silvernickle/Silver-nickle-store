@@ -10,6 +10,7 @@ const BreedDetails = ({ pet, breed }) => {
 
     return (
         <>
+            
             <div className='info-heading'>
                 <h2>Explore our varieties of {breed[0].title + 's'} </h2>
             </div>

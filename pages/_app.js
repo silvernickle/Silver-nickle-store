@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Layout from '../components/Layout';
 import { StateContext } from '../context/StateContext';

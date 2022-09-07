@@ -15,12 +15,10 @@ const breeds = ({ dogBreeds, bannerData }) => {
         <div className='footer-banner-container'>
             <div className='banner-desc'>
                 <div className='left'>
-                    {/* <p>{discount}</p> */}
                     <h3>Explore</h3>
                     <h3>by Breed</h3>
-                    {/* <p>{saleTime}</p> */}
                 </div>
-                <div className='right'>
+                <div className='right-clone'>
                     {/* <p>{smallText}</p> */}
                     <h3>Shiba Inu</h3>
                     <p>The Shiba Inu is a breed of hunting dog from Japan.</p>
