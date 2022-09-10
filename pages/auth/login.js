@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Loader from '../../components/Loader';
 
 const login = () => {
 
@@ -18,16 +19,22 @@ const login = () => {
 	const errRef = useRef();
 
 	const handleSubmitSignIn = async (e) => {
-    e.preventDefault();
+		e.preventDefault();
 
-    await signIn('sanity-login', {
-      redirect: false,
-      email,
-      password
-    });
-  };
+		await signIn('sanity-login', {
+		redirect: false,
+		email,
+		password
+		});
+  	};
 
-  	if (status === 'loading') return <p>Loading...</p>;
+  	if (status === 'loading') {
+		return (
+		  <div className='auth-wrapper'>
+			<Loader />
+		  </div>
+		)
+	}
 
 //   if (data) {
 //     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiFillInstagram, AiOutlineTwitter, AiFillMail } from 'react-icons/ai';
+import { AiFillMail, AiFillFacebook } from 'react-icons/ai';
 
 const Footer = () => {
   return (
@@ -7,10 +7,12 @@ const Footer = () => {
       <p>2022 Silver Nickle dog breeders All rights reserved</p>
       <p>silvernickledogbreeders@gmail.com</p>
       <p className='icons'>
-        <AiFillInstagram />
-        <AiOutlineTwitter />
         <a href="mailto:silvernickledogbreeders@gmail.com?subject=Request for the purchase of a puppy (Pet name)!">
           <AiFillMail />
+        </a>
+
+        <a href="https://www.facebook.com/profile.php?id=100015062959048">
+          <AiFillFacebook />
         </a>
       </p>
     </div>

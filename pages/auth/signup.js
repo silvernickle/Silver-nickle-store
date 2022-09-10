@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useSession, signOut, signIn } from 'next-auth/react';
 import { signUp } from 'next-auth-sanity/client';
 import { FaInfoCircle } from 'react-icons/fa';
+import Loader from '../../components/Loader';
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
@@ -71,7 +72,13 @@ const signup = () => {
     });
   };
 
-  if (status === 'loading') return <p>Loading...</p>;
+  if (status === 'loading') {
+    return (
+      <div className='auth-wrapper'>
+        <Loader />
+      </div>
+    )
+  }
 
   if (data) {
     router.push('/');

@@ -8,3 +8,4 @@ export { default as Login } from './Login';
 export { default as Pet } from './Pet';
 export { default as Web3Login } from './Web3Login';
 export { default as SearchBar } from './SearchBar';
+export { default as Loader } from './Loader';
