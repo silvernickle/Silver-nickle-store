@@ -5,9 +5,13 @@ import { useSession, signOut, signIn } from 'next-auth/react';
 import { signUp } from 'next-auth-sanity/client';
 import { FaInfoCircle } from 'react-icons/fa';
 import Loader from '../../components/Loader';
+import axios from 'axios';
+import { client } from '../../lib/client';
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
+
+const AUTH_URL = 'http://localhost:3000/api/fauth/signup';
 
 const signup = () => {
 
@@ -34,7 +38,7 @@ const signup = () => {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false); //this state reps a successfull signup
+  const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
@@ -58,21 +62,74 @@ const signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //console.log(email);
+    setLoadingState(true);
 
-    const user = await signUp({
-      email,
-      password,
-      name
-    });
+    //check if user exists
+    const query = `*[_type == "user" && email == '${email}']`; 
+    const loggedUser = await client.fetch(query);
+    //console.log(loggedUser);
 
-    await signIn('sanity-login', {
-      redirect: false,
-      email,
-      password
-    });
+    if (!loggedUser[0]?.email) {
+      //console.log('No user')
+
+      const user = await signUp({
+        email,
+        password,
+        name
+      });
+
+      // await signIn('sanity-login', {
+      //   redirect: false,
+      //   email,
+      //   password
+      // });
+      router.push('/auth/login');
+    } else {
+      //console.log(loggedUser[0]?.email);
+      setLoadingState(false);
+      setErrMsg('User already exists')
+    }
+    
   };
 
-  if (status === 'loading') {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   console.log(email, password)
+
+  //   const user = {
+  //     email,
+  //     password
+  //   }
+    
+  //   try {
+  //     const response = await axios.post(
+  //       AUTH_URL, JSON.stringify(user),
+  //       {
+  //         headers: { 'Content-Type': 'application/json' },
+  //         withCredentials: true
+  //       }
+  //     );
+  //     console.log(response.data);
+  //     // //setSuccess(true);
+  //     await signIn('sanity-login', {
+  //           redirect: false,
+  //           email,
+  //           password
+  //         });
+  //   } catch (error) {
+  //     if (!error?.response) {
+  //       setErrMsg('No Server Response')
+  //     } else if (error.response?.status === 409) {
+  //         setErrMsg('Email already exists');
+  //     } else {
+  //         setErrMsg('Registration Failed');
+  //     }
+  //   }
+  // }
+
+  if (status === 'loading' || loadingState === true) {
     return (
       <div className='auth-wrapper'>
         <Loader />
@@ -129,9 +186,9 @@ const signup = () => {
  							required
              />
              {/* {passwordFocus && !validPassword && (
-               <p id="pwdnote" className=''>
+               <p id="pwdnote" className='email-warning'>
                    <FaInfoCircle />
-                     8 to 24 characters.<br />
+                    8 to 24 characters.<br />
                    Must include uppercase and lowercase letters,<br /> a number and a special character.<br />
                    Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                </p>
@@ -152,12 +209,12 @@ const signup = () => {
                onBlur={() => setMatchFocus(false)}
  							required
              />
-             {matchFocus && !validMatch && (
+             {/* {matchFocus && !validMatch && (
                <p id="matchnote" className=''>
                    <FaInfoCircle />
                      Must match the first password input field.
                </p>
-             ) }
+             ) } */}
  					</div>
 
  					<div>

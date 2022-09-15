@@ -27,16 +27,32 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: "Method not allowed" });
     }
 
-    try {
-        const { email, password } = req.body;
-        const encryptedPassword = await bcrypt.hash(password, 10);
-        const user = {
-            email: email,
-            password: encryptedPassword
-        } 
-        client.createIfNotExists(user)
+    const { email, password } = req.body;
+        //console.log(password)
+        //const encryptedPassword = await bcrypt.hash(password, 10);
+        // const user = {
+        //     email: email,
+        //     password: password  //encryptedPassword
+        // } 
+        // console.log(user)
+
+        await client.create({_type: 'user', email, password})
             .then(() => res.status(200).json('Login success'))
-    } catch (error) {
-        res.status(400).json({ message: `Something went wrong ${error.message}` });
-    }
+
+    // try {
+    //     const { email, password } = req.body;
+    //     console.log(password)
+    //     //const encryptedPassword = await bcrypt.hash(password, 10);
+    //     const user = {
+    //         email: email,
+    //         password: password  //encryptedPassword
+    //     } 
+    //     console.log(user)
+
+    //     await client.createIfNotExists(user)
+    //         .then(() => res.status(200).json('Login success'))
+    // } catch (error) {
+    //     res.status(400).json({ message: `Something went wrong ${error.message}` });
+    // }
+    
 }

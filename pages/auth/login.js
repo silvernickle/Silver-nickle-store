@@ -14,21 +14,30 @@ const login = () => {
   	const [password, setPassword] = useState('');
 
 	const [errMsg, setErrMsg] = useState('');
+	const [loadingState, setLoadingState] = useState(false);
 
 	const emailRef = useRef(); //set's the focus of the screen on the email input field
 	const errRef = useRef();
 
 	const handleSubmitSignIn = async (e) => {
 		e.preventDefault();
+		setLoadingState(true);
 
-		await signIn('sanity-login', {
-		redirect: false,
-		email,
-		password
+		const request = await signIn('sanity-login', {
+			redirect: false,
+			email,
+			password
 		});
+		
+
+		if (request.status === 401) {
+			setLoadingState(false);
+			setErrMsg('Incorrect credentials');
+		}
+		setLoadingState(false);
   	};
 
-  	if (status === 'loading') {
+  	if (status === 'loading'|| loadingState === true) {
 		return (
 		  <div className='auth-wrapper'>
 			<Loader />
